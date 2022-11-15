@@ -34,7 +34,7 @@ m2 %>%
   facet_wrap(~ATTRIBUTES, ncol= 5)
 
 #---------------------------------------------------------------------------------------
-#                    STEO 2) RE-TRAIN ATTRIBUTES: cohesiveness, juiciness, taste
+#                    STEP 2) RE-TRAIN ATTRIBUTES: cohesiveness, juiciness, taste
 #----------------------------------------------------------------------------------------
 
 require(readxl)
@@ -80,25 +80,24 @@ Step2 %>%
 
 #---------------------------------------------------------------------------------------
 
-#3) ALBONDIGAS AZTI 
+#3) AZTI meatballs 
 
 require(readxl)
 require(tidyverse)
 
 # ANOVA JUDGE
 
-STEP1 <-read_excel("R/TRAINED PANEL/Panel_3steps.xlsx", 
-                   sheet = "step 1")
-View(STEP1)
+STEP3 <-read_excel("R/TRAINED PANEL/Panel_3steps.xlsx", 
+                   sheet = "step 3")
+View(STEP3)
 
 
-x1=STEP1$JUDGE
-y1=STEP1$JUICINESS
+x1=STEP3$FIRMNESS
+y1=STEP3$PRODUCT
 
 tabla1=data.frame(y1,x1)
 tabla1
 
-# ANOVA JUICINESS
 ANOVA1=aov(y1 ~ x1, tabla1)
 ANOVA1
 summary(ANOVA1)
@@ -109,7 +108,7 @@ m6<-read_excel("R/TRAINED PANEL/Panel_3steps.xlsx",
                sheet = "step 3", n_max = 24)
 m6
 
-m7<-m6 %>% pivot_longer(.,4:16, names_to="ATTRIBUTES", values_to="SCORES")
+m7<-m6 %>% pivot_longer(.,4:17, names_to="ATTRIBUTES", values_to="SCORES")
 m7
 
 #PARA PONER LA RAYITA ROJA DEL QDA
@@ -135,8 +134,8 @@ Step3 %>%
 #spider chart
 average_scores <- data.frame(
   row.names = c("REFERENCE", "PROTOTYPE"),
-  OUTSIDE_COLOUR = c(7.5, 7.7),
-  INSIDE_COLOUR = c(8.5, 7.6),
+  OUTER_COLOUR = c(7.5, 7.7),
+  INNER_COLOUR = c(8.5, 7.6),
   ELASTICITY = c(2,0.6),
   CHARACTERISTIC_ODOUR = c(0.9, 6.9),
   FIRMNESS = c(1.8,2.4),
@@ -146,7 +145,7 @@ average_scores <- data.frame(
   TASTE = c(2, 6.8),
   AFTERTASTE = c(1.3, 6.5),
   ADHERENCE = c (2.5, 1.5),
-  GRAINY = c(1.4, 5.5),
+  GRAININESS = c(1.4, 5.5),
   PASTINESS = c(6.5, 1.4),
   FAT_PERCEPTION = c(2.5, 1.5))
 average_scores 
@@ -155,8 +154,8 @@ install.packages("fmsb")
 library(fmsb)
 # Define the variable ranges: maximum and minimum
 max_min <- data.frame(
-  OUTSIDE_COLOUR = c(0, 9),
-  INSIDE_COLOUR = c(0, 9),
+  OUTER_COLOUR = c(0, 9),
+  INNER_COLOUR = c(0, 9),
   ELASTICITY = c(0, 9),
   CHARACTERISTIC_ODOUR = c(0, 9),
   FIRMNESS = c(0, 9),
@@ -166,7 +165,7 @@ max_min <- data.frame(
   TASTE = c(0, 9),
   AFTERTASTE = c(0, 9),
   ADHERENCE = c (0, 9),
-  GRAINY = c(0, 9),
+  GRAININESS = c(0, 9),
   PASTINESS = c(0, 9),
   FAT_PERCEPTION = c(0, 9))
   
@@ -217,7 +216,7 @@ legend(
   text.col = "black", cex = 0.75, pt.cex = 1.5
 )
 
-
+citation()
 
 
   
